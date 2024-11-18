@@ -19,6 +19,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 class ProductServiceImplTest {
     @Mock
     private ProductRepository productRepository;
+
+    @Mock
+    private NotificationService notificationService;
     @InjectMocks
     private ProductServiceImpl productServiceImpl;
 
@@ -35,6 +38,7 @@ class ProductServiceImplTest {
         given.setLeadTime(loadTime);
 
         Mockito.when(productRepository.save(given)).thenReturn(result);
+        Mockito.doNothing().when(notificationService).sendDelayNotification(loadTime, given.getName());
         productServiceImpl.notifyDelay(loadTime, given);
         assertThat(given.getLeadTime()).isEqualTo(loadTime);
     }

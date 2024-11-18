@@ -65,6 +65,5 @@ class OrderServiceImplTest {
         Mockito.doNothing().when(productService).handleExpiredProduct(Mockito.any());
         var result = orderServiceImpl.processOrder(orderId);
         assertThat(result.id()).isEqualTo(orderId);
-
     }
 }
